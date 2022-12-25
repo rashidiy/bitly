@@ -3,13 +3,12 @@
 <html lang="en">
 
 
-<!-- Mirrored from pixner.net/cortaly/main/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Dec 2022 22:19:42 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Cortaly - URL Shortner HTML Template</title>
+    <title>BitUI - URL Shortner</title>
 
     <link rel="stylesheet" href="{% static 'apps/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'apps/css/all.min.css' %}">
@@ -40,46 +39,24 @@
     <div class="container">
         <div class="header-wrapper">
             <div class="logo">
-                <a href="index.html">
+                <a href="{% url 'bitly' %}">
                     <img src="{% static 'apps/images/logo/logo.png' %}" alt="logo">
                 </a>
             </div>
-            <ul class="menu">
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li>
-                    <a href="payout-rates.html">Payout Rates</a>
-                </li>
-                <li>
-                    <a href="faq.html">Faq</a>
-                </li>
-                <li>
-                    <a href="#0">Blog</a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="blog.html">Blog</a>
-                        </li>
-                        <li>
-                            <a href="blog-single.html">Blog Single</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="d-sm-none text-center">
-                    <a href="sign-in.html" class="header-button active">Login</a>
-                </li>
-                <li class="d-sm-none text-center">
-                    <a href="sign-up.html" class="mb-4 header-button">Register</a>
-                </li>
-            </ul>
             <div class="header-bar d-lg-none mr-sm-3">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
             <div class="header-right">
-                <a href="sign-in.html" class="header-button d-none d-sm-inline-block m-0 active">Login</a>
-                <a href="sign-up.html" class="header-button d-none d-sm-inline-block m-0">Register</a>
+                {% if user.is_anonymous %}
+                    <a href="{% url 'sign-in' %}" class="header-button d-none d-sm-inline-block m-0 active">Sign-In</a>
+                    <a href="{% url 'sign-up' %}" class="header-button d-none d-sm-inline-block m-0">Sign-Up</a>
+                {% else %}
+                    <a><p style="text-transform: uppercase; color: #FFF; margin-right: 15px;font-size: 17px; font-weight: bold">{{ user.username }}</p></a>
+                    <a href="{% url 'sign-out' %}" class="header-button d-none d-sm-inline-block m-0">Sign-Out</a>
+                {% endif %}
+
             </div>
         </div>
     </div>
@@ -88,7 +65,7 @@
 
 
 <!--============= Banner Section Starts Here =============-->
-<section class="banner-section">
+<section class="banner-section mb-5">
     <div class="banner-bg bg_img" data-background="{% static 'apps/images/banner/banner-bg.jpg' %}">
         <div class="banner-bg-shape"><img src="{% static 'apps/images/banner/banner-shape.png' %}" alt="banner"></div>
         <div class="round-1">
@@ -107,93 +84,48 @@
         </div>
         <div class="banner-form-group">
             <h3 class="subtitle">Shorten URL Is Just Simple</h3>
-            <form class="banner-form">
-                <input type="text" placeholder="Your URL here" name="url" required>
+            <form action="{% url 'make-short' %}" method="post" class="banner-form">
+                {% csrf_token %}
+                <input type="text" placeholder="Your URL here" name="long" required>
                 <button type="submit">Shorten <i class="flaticon-startup"></i></button>
+                <div class="text-danger font-weight-bold" style="margin: auto; font-size: 20px;">
+                    {{ form.long.errors }}
+                </div>
             </form>
-            <div class="banner-counter">
+            <div class="banner-counter mb-3">
                 <div class="counter-item">
-                    <h2 class="counter-title"><span class="counter">1,200,000</span>+</h2>
+                    <h2 class="counter-title"><span class="counter">200</span>+</h2>
                     <p>Links clicked per day</p>
                 </div>
                 <div class="counter-item">
-                    <h2 class="counter-title"><span class="counter">348,000,000</span>+</h2>
+                    <h2 class="counter-title"><span class="counter">{{ links_count }}</span>+</h2>
                     <p>Shortened links in total</p>
                 </div>
                 <div class="counter-item">
-                    <h2 class="counter-title"><span class="counter">1,180,000</span>+</h2>
+                    <h2 class="counter-title"><span class="counter">{{ users_count }}</span>+</h2>
                     <p>Happy users registered</p>
                 </div>
             </div>
+            {% if not user.is_anonymous %}
+                <ul class="list-group list-group-flush">
+                    <h3>Your Links</h3>
+                    {% for link in user.link_set.all %}
+                        <li class="list-group-item user-links"
+                            style="display: grid; grid-template-columns: 1fr 8fr 3fr; white-space: nowrap;text-align: left">
+                            <div class="col">{{ forloop.counter }}</div>
+                            <div class="col">
+                                <a href="{{ link.long }}" target="_blank">{{ link.long }}</a>
+                            </div>
+                            <div class="col">
+                                <a href="http://{{ link.short }}" target="_blank">{{ link.short }}</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
     </div>
 </section>
-<!--============= Banner Section Ends Here =============-->
-
-
-<!--============= Why Section Starts Here =============-->
-<section class="why-section padding-bottom padding-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mt-lg-100">
-                <div class="section-header left-style mb-lg-0 sticky-header mb-low ml-0">
-                    <h2 class="title">
-                        Why Join Us?
-                    </h2>
-                    <p>Cortaly is a completely free tool where you can create short links, which apart from being free,
-                        you get paid! So, now you can make money from home, when managing and protecting your links.</p>
-                    <a href="#0" class="custom-button active mt-2">Create Your Account</a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="choose-item">
-                    <div class="choose-thumb">
-                        <img src="{% static 'apps/images/why/01.png' %}" alt="why">
-                    </div>
-                    <div class="choose-content">
-                        <h5 class="title">JOIN OUR NETWORK</h5>
-                        <p>Signup for an account in just one minute, shorten URLs and
-                            sharing your links to everywhere. And you'll be paid from any views.</p>
-                    </div>
-                </div>
-                <div class="choose-item">
-                    <div class="choose-thumb">
-                        <img src="{% static 'apps/images/why/02.png' %}" alt="why">
-                    </div>
-                    <div class="choose-content">
-                        <h5 class="title">HIGHEST RATES</h5>
-                        <p>Make the most out of your traffic with our always increasing rates. You are required to earn
-                            only $5.00 before you will be paid.</p>
-                    </div>
-                </div>
-                <div class="choose-item">
-                    <div class="choose-thumb">
-                        <img src="{% static 'apps/images/why/03.png' %}" alt="why">
-                    </div>
-                    <div class="choose-content">
-                        <h5 class="title">PAYMENTS ON TIME</h5>
-                        <p>We provide full mobile supports, you can even shorten the URL, control your account and view
-                            the stats on a mobile device.</p>
-                    </div>
-                </div>
-                <div class="choose-item">
-                    <div class="choose-thumb">
-                        <img src="{% static 'apps/images/why/04.png' %}" alt="why">
-                    </div>
-                    <div class="choose-content">
-                        <h5 class="title">RESPONSIVE UI</h5>
-                        <p>Request payments whenever you want and get your payments on 1st day and 15th day of every
-                            month. Enjoy you Spendings!!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--============= Why Section Ends Here =============-->
-
-
-<!--============= Feature Section Starts Here =============-->
 <section class="feature-section padding-top oh padding-bottom pb-lg-half bg_img pos-rel"
          data-background="{% static 'apps/images/feature/feature-bg.jpg' %}">
     <div class="top-shape d-none d-md-block">
@@ -449,101 +381,19 @@
 
 
 <!--============= Call In Action Section Starts Here =============-->
-<section class="call-in-action padding-top padding-bottom section-bg text-center">
+<section class="call-in-action padding-top padding-bottom section-bg text-center"
+         style="background: url({% static 'apps/images/footer/footer-bg.jpg' %});color: #fff;position: relative">
+    <img src="{% static 'apps/images/footer/wave.png' %}" alt="footer" style="position: absolute; top: 0; left: 0">
     <div class="container">
         <div class="section-header mb-low">
             <h5 class="cate">JOIN US NOW</h5>
             <h2 class="title">Boost Your Earnings</h2>
             <p>Sign up for free and become one of the millions of people around the world
-                who have fallen in love with Cortaly</p>
+                who have fallen in love with BitUI</p>
         </div>
-        <a href="#0" class="custom-button">Start earning now!</a>
+        <a href="{% url 'sign-up' %}" class="custom-button">Start earning now!</a>
     </div>
 </section>
-<!--============= Call In Action Section Ends Here =============-->
-
-
-<!--============= Footer Section Starts Here =============-->
-<footer class="footer-section padding-top">
-    <div class="footer-bg bg_img" data-background="{% static 'apps/images/footer/footer-bg.jpg' %}"></div>
-    <div class="footer-bg d-md-block d-none"><img src="{% static 'apps/images/footer/wave.png' %}" alt="footer"></div>
-    <div class="container">
-        <div class="section-header cl-white-499">
-            <h5 class="cate">Contact Us</h5>
-            <h2 class="title">Get in touch!</h2>
-            <p>We thrive to ensure that you get the most out of your experience</p>
-        </div>
-        <form class="contact-form" id="contact_form_submit">
-            <div class="form-group">
-                <label for="name">Your Full Name</label>
-                <input type="text" name="name" id="name" placeholder="Enter Your Full Name">
-            </div>
-            <div class="form-group">
-                <label for="email">Your Email</label>
-                <input type="text" name="email" id="email" placeholder="Enter Your Email">
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea name="message" id="message" placeholder="Enter Your Message"></textarea>
-            </div>
-            <div class="form-group check-group">
-                <input type="checkbox" id="check" required>
-                <label for="check">I agree to receive emails, newsletters and promotional messages</label>
-            </div>
-            <div class="form-group text-center">
-                <button type="submit">Send Message</button>
-            </div>
-        </form>
-        <div class="footer-top">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="{% static 'apps/images/logo/footer-logo.png' %}" alt="logo">
-                </a>
-            </div>
-            <ul class="links">
-                <li>
-                    <a href="#0"><img src="{% static 'apps/images/footer/neteller.png' %}" alt="footer"></a>
-                </li>
-                <li>
-                    <a href="#0"><img src="{% static 'apps/images/footer/skrill.png' %}" alt="footer"></a>
-                </li>
-                <li>
-                    <a href="#0"><img src="{% static 'apps/images/footer/paypal.png' %}" alt="footer"></a>
-                </li>
-            </ul>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-bottom-area">
-                <div class="left cl-white">
-                    <p>&copy; Copyright 2020 | <a href="#0">Cortaly</a> By UIAXIS</p>
-                </div>
-                <ul class="social-icons">
-                    <li>
-                        <a href="#0" class="active">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#0" class="">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#0" class="">
-                            <i class="fab fa-pinterest-p"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#0" class="">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-<!--============= Footer Section Ends Here =============-->
 
 
 <script src="{% static 'apps/js/jquery-3.3.1.min.js' %}"></script>
@@ -560,7 +410,4 @@
 <script src="{% static 'apps/js/contact.js' %}"></script>
 <script src="{% static 'apps/js/main.js' %}"></script>
 </body>
-
-
-<!-- Mirrored from pixner.net/cortaly/main/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Dec 2022 22:21:35 GMT -->
 </html>

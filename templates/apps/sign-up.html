@@ -3,13 +3,12 @@
 <html lang="en">
 
 
-<!-- Mirrored from pixner.net/cortaly/main/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Dec 2022 22:22:43 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Cortaly - URL Shortner HTML Template</title>
+    <title>BitUI - URL Shortner</title>
 
     <link rel="stylesheet" href="{% static 'apps/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'apps/css/all.min.css' %}">
@@ -41,9 +40,9 @@
 <div class="account-section bg_img" data-background="{% static 'apps/images/account-bg.jpg' %}">
     <div class="container">
         <div class="account-title text-center">
-            <a href="index.html" class="back-home"><i class="fas fa-angle-left"></i><span>Back <span
-                    class="d-none d-sm-inline-block">To Cortaly</span></span></a>
-            <a href="index.html" class="logo">
+            <a href="{% url 'bitly' %}" class="back-home"><i class="fas fa-angle-left"></i><span>Back <span
+                    class="d-none d-sm-inline-block">To BitUI</span></span></a>
+            <a href="{% url 'bitly' %}" class="logo">
                 <img src="{% static 'apps/images/logo/logo.png' %}" alt="logo">
             </a>
         </div>
@@ -83,13 +82,14 @@
                     </div>
                     <div class="form-group text-center">
                         <button type="submit">Try It Now</button>
-                        <span class="d-block mt-15">Already have an account? <a href="{% url 'sign-in' %}">Sign In</a></span>
+                        <span class="d-block mt-15">Already have an account? <a
+                                href="{% url 'sign-in' %}">Sign In</a></span>
                     </div>
                 </form>
             </div>
         </div>
         <div class="sponsor-slider-wrapper cl-white text-center mt-40">
-            <h5 class="slider-heading mb-3">Used by over {{ users.count }} people worldwide</h5>
+            <h5 class="slider-heading mb-3">Used by over {{ users_count }} people worldwide</h5>
             <div class="sponsor-slider-4 owl-theme owl-carousel">
                 <div class="sponsor-thumb">
                     <img src="{% static 'apps/images/sponsor/sponsor1.png' %}" alt="sponsor">
@@ -144,15 +144,12 @@
 <script src="{% static 'apps/js/modernizr-3.6.0.min.js' %}"></script>
 <script src="{% static 'apps/js/plugins.js' %}"></script>
 <script src="{% static 'apps/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'apps/js/wow.min.js'' %}"></script>
-    <script src="
-{% static 'apps/js/waypoints.js'' %}"></script>
-<script src="{% static 'apps/js/nice-select.js'' %}"></script>
-    <script src="
-{% static 'apps/js/counterup.min.js'' %}"></script>
-<script src="{% static 'apps/js/owl.min.js'' %}"></script>
-    <script src="
-{% static 'apps/js/magnific-popup.min.js' %}"></script>
+<script src="{% static 'apps/js/wow.min.js' %}"></script>
+<script src="{% static 'apps/js/waypoints.js' %}"></script>
+<script src="{% static 'apps/js/nice-select.js' %}"></script>
+<script src="{% static 'apps/js/counterup.min.js' %}"></script>
+<script src="{% static 'apps/js/owl.min.js' %}"></script>
+<script src="{% static 'apps/js/magnific-popup.min.js' %}"></script>
 <script src="{% static 'apps/js/paroller.js' %}"></script>
 <script src="{% static 'apps/js/main.js' %}"></script>
 
@@ -160,5 +157,4 @@
 </body>
 
 
-<!-- Mirrored from pixner.net/cortaly/main/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Dec 2022 22:22:57 GMT -->
 </html>

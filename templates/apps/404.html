@@ -1,0 +1,134 @@
+<html>
+<style>
+    body {
+        background: #0a192f;
+        overflow: hidden;
+    }
+
+    .container {
+
+        display: grid;
+        min-height: 100%;
+        width: 100%;
+        margin: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    h1 {
+        font-size: 200px;
+        color: #64ffda;
+        font-family: monospace;
+        position: relative;
+
+    }
+
+    .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 10px solid #64ffda;
+
+        border-left-color: transparent;
+        position: absolute;
+        top: 200px;
+        left: 135px;
+
+        animation: 1s infinite cir;
+
+    }
+
+    @keyframes cir {
+        0% {
+            transform: rotate(0deg);
+        }
+        50% {
+            transform: rotate(180deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .cir2 {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid #64ffda;
+
+        border-right-color: transparent;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        animation: 2s infinite cir2;
+
+    }
+
+    @keyframes cir2
+
+    0
+    %
+    {
+        transform: rotate(0deg)
+    ;
+    }
+    30
+    %
+    {
+        transform: rotate(180deg)
+    ;
+    }
+    100
+    %
+    {
+        transform: rotate(360deg)
+    ;
+    }
+    }
+    .h {
+        left: 10px;
+    }
+
+    p {
+
+        font-family: monospace;
+        color: #64ffda;
+        font-size: 25px;
+        position: relative;
+        top: -100px;
+    }
+
+    @media (min-width: 700px) {
+        .container {
+            display: flex;
+            width: 410px;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: monospace;
+        }
+
+
+        .container > h1:first-of-type {
+            width: 250px;
+        }
+    }
+
+
+</style>
+<body>
+
+<div class="container">
+    <h1>4</h1>
+    <div class="circle">
+        <div class="cir2">
+
+        </div>
+    </div>
+
+    <h1 class="h">4</h1>
+</div>
+<center>
+    <p>Page not found</p>
+</center>
+</body>
+</html>
