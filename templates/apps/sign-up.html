@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from pixner.net/cortaly/main/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Dec 2022 22:22:43 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Cortaly - URL Shortner HTML Template</title>
+
+    <link rel="stylesheet" href="{% static 'apps/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'apps/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'apps/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'apps/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'apps/css/owl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'apps/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'apps/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'apps/css/main.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'apps/images/favicon.png' %}" type="image/x-icon">
+
+
+</head>
+
+<body>
+
+<!--============= ScrollToTop Section Starts Here =============-->
+<div class="overlayer" id="overlayer">
+    <div class="loader">
+        <div class="loader-inner"></div>
+    </div>
+</div>
+<a href="#0" class="scrollToTop"><i class="fas fa-angle-up"></i></a>
+<div class="overlay"></div>
+<!--============= ScrollToTop Section Ends Here =============-->
+
+<!--============= Sign In Section Starts Here =============-->
+<div class="account-section bg_img" data-background="{% static 'apps/images/account-bg.jpg' %}">
+    <div class="container">
+        <div class="account-title text-center">
+            <a href="index.html" class="back-home"><i class="fas fa-angle-left"></i><span>Back <span
+                    class="d-none d-sm-inline-block">To Cortaly</span></span></a>
+            <a href="index.html" class="logo">
+                <img src="{% static 'apps/images/logo/logo.png' %}" alt="logo">
+            </a>
+        </div>
+        <div class="account-wrapper">
+            <div class="account-header">
+                <h4 class="title">Let's get started</h4>
+            </div>
+            <div class="account-body">
+                <form action="{% url "sign-up" %}" method="post" class="account-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="username">{{ form.username.label }}</label>
+                                {{ form.username }}
+                                {{ form.username.errors }}
+                            </div>
+                            <div class="col">
+                                <label for="email">{{ form.email.label }}</label>
+                                {{ form.email }}
+                                {{ form.email.errors }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="password1">{{ form.password1.label }}</label>
+                                {{ form.password1 }}
+                            </div>
+                            <div class="col">
+                                <label for="password2">{{ form.password2.label }}</label>
+                                {{ form.password2 }}
+                            </div>
+                        </div>
+                        <div class="row ml-3">
+                            {{ form.password2.errors }}
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit">Try It Now</button>
+                        <span class="d-block mt-15">Already have an account? <a href="{% url 'sign-in' %}">Sign In</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="sponsor-slider-wrapper cl-white text-center mt-40">
+            <h5 class="slider-heading mb-3">Used by over {{ users.count }} people worldwide</h5>
+            <div class="sponsor-slider-4 owl-theme owl-carousel">
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor1.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor2.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor3.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor4.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor5.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor6.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor7.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor1.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor2.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor3.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor4.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor5.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor6.png' %}" alt="sponsor">
+                </div>
+                <div class="sponsor-thumb">
+                    <img src="{% static 'apps/images/sponsor/sponsor7.png' %}" alt="sponsor">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--============= Sign In Section Ends Here =============-->
+
+
+<script src="{% static 'apps/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'apps/js/modernizr-3.6.0.min.js' %}"></script>
+<script src="{% static 'apps/js/plugins.js' %}"></script>
+<script src="{% static 'apps/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'apps/js/wow.min.js'' %}"></script>
+    <script src="
+{% static 'apps/js/waypoints.js'' %}"></script>
+<script src="{% static 'apps/js/nice-select.js'' %}"></script>
+    <script src="
+{% static 'apps/js/counterup.min.js'' %}"></script>
+<script src="{% static 'apps/js/owl.min.js'' %}"></script>
+    <script src="
+{% static 'apps/js/magnific-popup.min.js' %}"></script>
+<script src="{% static 'apps/js/paroller.js' %}"></script>
+<script src="{% static 'apps/js/main.js' %}"></script>
+
+
+</body>
+
+
+<!-- Mirrored from pixner.net/cortaly/main/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 24 Dec 2022 22:22:57 GMT -->
+</html>
